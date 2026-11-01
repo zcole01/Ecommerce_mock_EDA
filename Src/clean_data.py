@@ -31,8 +31,8 @@ def clean_data(df):
     #cleaning up data inputs
     df["quantity"] = df["quantity"].abs()
     df["unit_price"] = df["unit_price"].replace(r"[^0-9.]", "", regex=True)#removes non-numeric characters
-    df["order_status"] = df["order_status"].replace("cancelled", "cancel")
-    df["order_status"] = df["order_status"].replace("completed", "complete")
+    df["order_status"] = df["order_status"].replace("Cancelled", "Cancel")
+    df["order_status"] = df["order_status"].replace("Completed", "Complete")
     df["payment_method"] = df["payment_method"].replace("CC", "Credit Card")
     df["payment_method"] = df["payment_method"].replace("Debit", "Debit Card")
     df["payment_method"] = df["payment_method"].str.replace(r"\s+", "",regex = True)#removing all whitespace
@@ -59,7 +59,7 @@ def clean_data(df):
     df["unit_price"] = df["unit_price"].replace(" ", np.nan)
     df["unit_price"] = df["unit_price"].replace(9999.99, np.nan)
     #removing duplicates
-    df = df.drop_duplicates(subset="customer_id")
+    df = df.drop_duplicates(keep="first")
     #return cleaned dataframe
     return df
 
